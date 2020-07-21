@@ -31,7 +31,7 @@ Options:
   -i		prompt before moving every file
   -r, -R	ignored (for compatability with rm)
   -f		ignore non-existent files, never prompt
-  -e		empty the trash directory
+  -e		empty trash for working directory
 EOU
 }
 
