@@ -136,7 +136,7 @@ function can_trash {
     case $interactive in
       never|force) echo 1 ;;
       always)
-        read -p "${progname}: move ${type} '${filename}' to trash?" yn
+        read -p "${progname}: move ${type} '${filename}' to trash? " yn
         if [[ "$yn" =~ ^[yY]$ ]]; then
           echo 1
         else
