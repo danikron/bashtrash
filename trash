@@ -31,6 +31,7 @@ Options:
   -i		prompt before moving every file
   -r, -R	ignored (for compatability with rm)
   -f		ignore non-existent files, never prompt
+  -e		empty the trash directory
 EOU
 }
 
@@ -215,6 +216,20 @@ END
   fi
 }
 
+function empty_trash {
+	dir=`pwd`
+	trashdir=`get_trashdir "$dir"`
+
+	if [ $verbose != 0 ]; then
+		rm_opts="-rfv"
+	else
+		rm_opts="-rf"
+	fi
+
+	read -p "${progname}: delete all files in ${trashdir}? " yn
+	[[ "$yn" =~ ^[yY]$ ]] && /usr/bin/rm $rm_opts ${trashdir}/*
+}
+
 # Option handling
 
 function strip_quotes {
@@ -232,7 +247,7 @@ verbose=0
 interactive=never
 filename=
 
-while getopts hvirRf arg; do
+while getopts hvirRfe arg; do
     case $arg in
 	h) show_usage;
 	    exit 1
@@ -245,11 +260,19 @@ while getopts hvirRf arg; do
 	    ;;
 	f) interactive=force
 	    ;;
+	e)
+		empty=1
+		;;
 	[?]) try_help
 	    exit 1
 	    ;;
     esac
 done
+
+if [ "$empty" = "1" ]; then
+	empty_trash
+	exit 0
+fi
 
 shift $(( OPTIND - 1))
 
