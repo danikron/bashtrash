@@ -110,7 +110,7 @@ function get_trashdir {
   if [ "$base" == "$HOME" ]; then
     base=$XDG_DATA_HOME
     if [ -z "$base" ]; then
-      base="$HOME/.local/share/"
+      base="$HOME/.local/share"
     fi
     trashdir="$base/Trash"
   fi
