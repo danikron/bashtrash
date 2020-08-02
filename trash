@@ -217,7 +217,7 @@ END
 }
 
 function empty_trash {
-	dir=`pwd`
+	dir=`pwd -P`
 	trashdir=`get_trashdir "$dir"`
 
 	if [ $verbose != 0 ]; then
